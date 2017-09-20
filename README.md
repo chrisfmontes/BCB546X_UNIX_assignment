@@ -20,3 +20,20 @@ git add .
 git commit
 git pull
 ```
+# Data Inspection
+**1st:** Inspected the contents of the folder using:
+```
+$ ls -l
+```
+And I got the following:
+```
+-rw-rw-rw- 1 pollo pollo 11051939 Sep 18 17:07 fang_et_al_genotypes.txt
+-rw-rw-rw- 1 pollo pollo      747 Sep 19 16:02 README.md
+-rw-rw-rw- 1 pollo pollo    82763 Sep 18 17:07 snp_position.txt
+-rw-rw-rw- 1 pollo pollo      353 Sep 18 17:07 transpose.awk
+-rw-rw-rw- 1 pollo pollo     4847 Sep 18 17:07 UNIX_Assignment.md
+-rw-rw-rw- 1 pollo pollo    56704 Sep 18 17:07 UNIX_Assignment.pdf
+```
+
+**2nd:** Inspected both 'fang_et_al_genotypes.txt' and 'snp_position.txt' files
+
