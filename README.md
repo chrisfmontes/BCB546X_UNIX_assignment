@@ -35,5 +35,5 @@ And I got the following:
 -rw-rw-rw- 1 pollo pollo    56704 Sep 18 17:07 UNIX_Assignment.pdf
 ```
 
-**2nd:** Inspected both 'fang_et_al_genotypes.txt' and 'snp_position.txt' files
+**2nd:** Inspected both `fang_et_al_genotypes.txt` and `snp_position.txt` files
 
