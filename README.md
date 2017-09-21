@@ -34,6 +34,27 @@ And I got the following:
 -rw-rw-rw- 1 pollo pollo     4847 Sep 18 17:07 UNIX_Assignment.md
 -rw-rw-rw- 1 pollo pollo    56704 Sep 18 17:07 UNIX_Assignment.pdf
 ```
+From this I conclude that the file `fang_et_al_genotypes.txt` has a size of 11051939 bytes and the file `snp_position.txt` has a size of 82763 bytes and I can also conclude that these two files are the only `.txt` files.
 
 **2nd:** Inspected both `fang_et_al_genotypes.txt` and `snp_position.txt` files
+
+1. Used `less -S` command on both files to get a quick view of them (-S argument gives a column ordered view):
+```
+$ less -S fang_et_al_genotypes.txt
+$ less -S snp_position.txt
+```
+From this I concluded that both files have headers and neither of them seems to have metadata entries. I also realize that the file `fang_et_al_genotypes.txt` has an impressively high number of columns.
+
+2. Used `wc -l` and the `awk` code to get number of lines and cloumns, respectively:
+```
+$ wc -l *.txt
+     2783 fang_et_al_genotypes.txt
+     984 snp_position.txt
+
+$ awk -F "\t" '{print NF; exit}' fang_et_al_genotypes.txt
+986
+
+$ awk -F "\t" '{print NF; exit}' snp_position.txt
+15
+```
 
