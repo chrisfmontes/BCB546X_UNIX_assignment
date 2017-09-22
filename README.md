@@ -45,16 +45,30 @@ $ less -S snp_position.txt
 ```
 From this I concluded that both files have headers and neither of them seems to have metadata entries. I also realize that the file `fang_et_al_genotypes.txt` has an impressively high number of columns.
 
-2. Used `wc -l` and the `awk` code to get number of lines and cloumns, respectively:
+2. Used `wc -l` and the `awk` code to get number of lines and columns, respectively:
 ```
 $ wc -l *.txt
      2783 fang_et_al_genotypes.txt
      984 snp_position.txt
-
+```
+```
 $ awk -F "\t" '{print NF; exit}' fang_et_al_genotypes.txt
 986
-
+```
+```
 $ awk -F "\t" '{print NF; exit}' snp_position.txt
 15
 ```
+The file `fang_et_al_genotypes.txt` has 2783 lines and 986 columns, whereas the file `snp_position.txt` has 984 lines and 15 columns.
 
+3. Used the `file` command to check for non-ASCII characters:
+```
+$ file *.txt
+
+fang_et_al_genotypes.txt: ASCII text, with very long lines
+snp_position.txt:         ASCII text
+```
+**Summary:** From the data inspection I have found:
+1. The file `fang_et_al_genotypes.txt` is a 11051939 bytes file with 2783 lines of data and 986 columns.
+2. The file `snp_position.txt` is a 82763 bytes file with 984 lines of data and 15 columns.
+3. Both files are ASCII text and have a header on their first line.
