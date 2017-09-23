@@ -77,4 +77,18 @@ snp_position.txt:         ASCII text
 
 ## Data Processing
 
+**1st:** Prepared files for 'join':
+Used grep to extract maize- and teosinte-specific data, respectively. In both cases a pattern for extracting the header was included. Piped the output to the provided `awk` script in order to transpose the data. Next, I piped the transposed data to `tail` to get rid of the headers and piped that output to `sort`.
+```
+$ grep -E "ZMMIL|ZMMLR|ZMMMR|Sample" fang_et_al_genotypes.txt | awk -f transpose.awk | tail -n +4 | sort -k1,1 \
+> sorted_headless_transposed_maize_genotypes.txt
 
+$ grep -E "ZMPBA|ZMPIL|ZMPJA|Sample" fang_et_al_genotypes.txt | awk -f transpose.awk | tail -n +4 | sort -k1,1 \
+> sorted_headless_transposed_teosinte_genotypes.txt
+```
+Used `sort` on column 1, which is the common column between the "genotypes" files and the "snp_position" file.
+```
+$ tail -n +2 snp_position.txt | sort -k1,1 > sorted_headless_snp_position.txt
+```
+
+**2nd:** 
