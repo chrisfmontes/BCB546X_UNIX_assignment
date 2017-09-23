@@ -100,9 +100,11 @@ $ tail -n +2 snp_position.txt | sort -k1,1 > sorted_headless_snp_position.txt
 ### Joining the files and preparing for the extraction of the data:
 
 ```
-$ join -1 1 -2 1 sorted_headless_snp_position.txt sorted_headless_transposed_maize_genotypes.txt > joined_snp_maize_genotypes.txt
+$ join -1 1 -2 1 sorted_headless_snp_position.txt sorted_headless_transposed_maize_genotypes.txt \
+> joined_snp_maize_genotypes.txt
 
-$ join -1 1 -2 1 sorted_headless_snp_position.txt sorted_headless_transposed_teosinte_genotypes.txt > joined_snp_teosinte_genotypes.txt
+$ join -1 1 -2 1 sorted_headless_snp_position.txt sorted_headless_transposed_teosinte_genotypes.txt \
+> joined_snp_teosinte_genotypes.txt
 ```
 After joining the files, I extracted the columns corresponding to the "SNP_ID", "Chromosome", "Position", and subsequent columns of genotype data from either maize or teosinte individuals.
 First I need to know the number of columns, for this I used the awk code provided in class:
@@ -112,27 +114,25 @@ First I need to know the number of columns, for this I used the awk code provide
  ```
  After getting the number of columns, I selected only the ones needed, using `cut -f`:
  ```
- $ cut -d" " -f1,3,4,14-988 joined_snp_teosinte_genotypes.txt\
- > subset_joined_snp_teosinte_genotypes.txt
- $ cut -d" " -f1,3,4,14-1586 joined_snp_maize_genotypes.txt\
- > subset_joined_snp_maize_genotypes.txt
+ $ cut -d" " -f1,3,4,14-988 joined_snp_teosinte_genotypes.txt > subset_joined_snp_teosinte_genotypes.txt
+ $ cut -d" " -f1,3,4,14-1586 joined_snp_maize_genotypes.txt > subset_joined_snp_maize_genotypes.txt
  ```
  
  ### Extracting chromosome data
  For this I used a `for` loop in bash, but passing the variable to `awk`. Then, piped the output to `awk` in order to eliminate non-numerical position data. Finally sorted the result according the requirement (either ascending or descending, accordingly).
  ```
-$ for CHR in {1..10}; do awk -v CHR=$CHR '$2=CHR' subset_joined_snp_maize_genotypes.txt | awk '($3 !~ /[a-zA-Z]/)'\
-| sort -n -k3,3 > maize_increasing_CHR$CHR.txt; done
-$ for CHR in {1..10}; do awk -v CHR=$CHR '$2=CHR' subset_joined_snp_teosinte_genotypes.txt | awk '($3 !~ /[a-zA-Z]/)'\
-| sort -n -k3,3 > teosinte_increasing_CHR$CHR.txt; done
+$ for CHR in {1..10}; do awk -v CHR=$CHR '$2=CHR' subset_joined_snp_maize_genotypes.txt | awk \
+'($3 !~ /[a-zA-Z]/)' | sort -n -k3,3 > maize_increasing_CHR$CHR.txt; done
+$ for CHR in {1..10}; do awk -v CHR=$CHR '$2=CHR' subset_joined_snp_teosinte_genotypes.txt | awk \
+'($3 !~ /[a-zA-Z]/)' | sort -n -k3,3 > teosinte_increasing_CHR$CHR.txt; done
 ```
 For the decreasing data I used and extra pipe through `sed`, in order to change the "?" to "-":
 ```
-$ for CHR in {1..10}; do awk -v CHR=$CHR '$2=CHR' subset_joined_snp_maize_genotypes.txt | awk '($3 !~ /[a-zA-Z]/)'\
-| sort -n -k3,3 -r | sed 's/?/-/g' > maize_decreasing_CHR$CHR.txt; done
+$ for CHR in {1..10}; do awk -v CHR=$CHR '$2=CHR' subset_joined_snp_maize_genotypes.txt | awk \
+'($3 !~ /[a-zA-Z]/)' | sort -n -k3,3 -r | sed 's/?/-/g' > maize_decreasing_CHR$CHR.txt; done
 
-$ for CHR in {1..10}; do awk -v CHR=$CHR '$2=CHR' subset_joined_snp_teosinte_genotypes.txt | awk '($3 !~ /[a-zA-Z]/)'\
-| sort -n -k3,3 -r | sed 's/?/-/g' > teosinte_decreasing_CHR$CHR.txt; done
+$ for CHR in {1..10}; do awk -v CHR=$CHR '$2=CHR' subset_joined_snp_teosinte_genotypes.txt | awk \
+'($3 !~ /[a-zA-Z]/)' | sort -n -k3,3 -r | sed 's/?/-/g' > teosinte_decreasing_CHR$CHR.txt; done
 ```
  Finally, for the "unknown" and multisite snp I used `awk`:
 ```
