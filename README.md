@@ -72,3 +72,9 @@ snp_position.txt:         ASCII text
 1. The file `fang_et_al_genotypes.txt` is a 11051939 bytes file with 2783 lines of data and 986 columns.
 2. The file `snp_position.txt` is a 82763 bytes file with 984 lines of data and 15 columns.
 3. Both files are ASCII text and have a header on their first line.
+
+**Notes:** Using `cat`, `head` and `tail` commands on these files resulted in a mess on my screen. This was due to the elevated number of columns on them.
+
+## Data Processing
+
+
